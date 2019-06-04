@@ -1,12 +1,12 @@
 <section class="section">
-    <p>Add Review</p>
+    <p>Search Review</p>
     <form action="/yelp" method="POST">
             <label>Business Name:
                 <input type="text" name="name">
             </label>
-            <label>Review:
+            <!-- <label>Review:
                 <input type="text" name="review">
-            </label>
+            </label> -->
         <div class="button">
             <button type="submit">Search me hard</button>
         </div>
@@ -18,12 +18,25 @@
         <thead>
             <tr>
                 <td>Businesses</td>
-                <td>Reviews</td>
             </tr>
         </thead>
         ${reviewList.map(top =>
                 `<tr>
                     <td>${top.business}</td>
+                </tr>`
+            ).join('')}
+    </table>
+</section>
+
+<section class="section">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Reviews</td>
+            </tr>
+        </thead>
+        ${reviewList.map(top =>
+                `<tr>
                     <td>${top.review}</td>
                 </tr>`
             ).join('')}

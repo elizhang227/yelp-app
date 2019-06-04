@@ -30,6 +30,24 @@ class Reviews {
         };
     }
 
+    static async getOne(name) {
+        try {
+            const response = await db.any(`select business from businesses where businesses.business='${name}'`);
+            return response;
+        } catch(err) {
+            return err.message
+        }
+    }
+
+    static async getAllReviewsForRestaurant(name) {
+        try {
+            const response = await db.any(`select business, review from businesses, reviews where businesses.business='${name}' and business_id=businesses.id`);
+            return response;
+        } catch(err) {
+            return err.message
+        }
+    }
+
     // static async refreshTopic(name, ranking) {
     //     const query2 = `update rankings set ranking = ${ranking} from topics where topics.id=rankings.id AND topics.topic='${name}'`;
 
