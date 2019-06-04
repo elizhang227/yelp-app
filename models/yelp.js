@@ -59,7 +59,7 @@ class Reviews {
 
     static async getOneReviewForBusiness(name) {
         try {
-            const response = await db.any(`select business, review from businesses, reviews where reviews.review='${name}'`);
+            const response = await db.any(`select business, review from businesses, reviews where businesses.business='${name}' and business_id=businesses.id and review_id=businesses.id;`);
             return response;
         } catch(err) {
             return err.message
