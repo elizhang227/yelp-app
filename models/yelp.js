@@ -8,7 +8,7 @@ class Reviews {
 
     static async getAllReviews() {
         try {
-            const response = await db.any(`select * from topics, rankings where topics.id=rankings.id`);
+            const response = await db.any(`select * from businesses, reviews where businesses.id=reviews.id`);
             //const response = await db.any(`select * from topics`);
             return response;
         } catch(err) {
@@ -16,19 +16,21 @@ class Reviews {
         }
     }
 
-    static async refreshTopic(name, ranking) {
-        const query2 = `update rankings set ranking = ${ranking} from topics where topics.id=rankings.id AND topics.topic='${name}'`;
+    static async addReview(name, review) {
+        const query = `INSERT INTO businesses (business) VALUES ('${name}')`;
+        const query2 = `INSERT INTO reviews (review) VALUES ('${review}')`;
 
         try {
+            let response = await db.result(query)
             let response2 = await db.result(query2)
-            return response2;
+            return response, response2;
         } catch(err) {
             console.log("ERROR", err.message);
             return err;
         };
     }
 
-    // static async updateTopic(name, ranking) {
+    // static async refreshTopic(name, ranking) {
     //     const query2 = `update rankings set ranking = ${ranking} from topics where topics.id=rankings.id AND topics.topic='${name}'`;
 
     //     try {
@@ -40,14 +42,12 @@ class Reviews {
     //     };
     // }
 
-    // static async addTopic(name, ranking) {
-    //     const query = `INSERT INTO topics (topic) VALUES ('${name}')`;
-    //     const query2 = `INSERT INTO rankings (ranking) VALUES ('${ranking}')`;
+    // static async updateTopic(name, ranking) {
+    //     const query2 = `update rankings set ranking = ${ranking} from topics where topics.id=rankings.id AND topics.topic='${name}'`;
 
     //     try {
-    //         let response = await db.result(query)
     //         let response2 = await db.result(query2)
-    //         return response, response2;
+    //         return response2;
     //     } catch(err) {
     //         console.log("ERROR", err.message);
     //         return err;

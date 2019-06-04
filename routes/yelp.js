@@ -3,33 +3,34 @@ const express = require('express'),
     yelpModel = require('../models/yelp');
 
 router.get('/', async (req, res, next) => {
-    const allReviews = await yelpModel.getallReviews();
+    const allReviews = await yelpModel.getAllReviews();
 
     res.render('template', { 
         locals: {
-            title: 'List of Topics from Class',
-            topicList: allReviews
+            title: 'List of REVIEWS',
+            reviewList: allReviews
         },
         partials : {
-            content: 'partial-topics'
+            content: 'partial-yelp'
         }
     });
 })
 
 router.post('/', (req, res) => {
-    const { name, ranking } = req.body;
+    console.log(req.body);
+    const { name, review } = req.body;
 
-    yelpModel.refreshTopic(name, ranking)
+    yelpModel.addReview(name, review)
     .then(async () => {
-        const allReviews = await yelpModel.getallReviews();
+        const allReviews = await yelpModel.getAllReviews();
 
         res.status(200).render('template', {
             locals: {
-                title: 'List of Topics from Class',
-                topicList: allReviews
+                title: 'List of REVIEWS',
+                reviewList: allReviews
             },
             partials: {
-                content: 'partial-topics'
+                content: 'partial-yelp'
             }
         });
     })
