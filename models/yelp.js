@@ -30,7 +30,7 @@ class Reviews {
         };
     }
 
-    static async getOne(name) {
+    static async getOneBusiness(name) {
         try {
             const response = await db.any(`select business from businesses where businesses.business='${name}'`);
             return response;
@@ -39,9 +39,27 @@ class Reviews {
         }
     }
 
-    static async getAllReviewsForRestaurant(name) {
+    static async getAllReviewsForBusiness(name) {
         try {
             const response = await db.any(`select business, review from businesses, reviews where businesses.business='${name}' and business_id=businesses.id`);
+            return response;
+        } catch(err) {
+            return err.message
+        }
+    }
+
+    // static async getOneNameForBusiness(name) {
+    //     try {
+    //         const response = await db.any(`select review from reviews where reviews.review='${name}'`);
+    //         return response;
+    //     } catch(err) {
+    //         return err.message
+    //     }
+    // }
+
+    static async getOneReviewForBusiness(name) {
+        try {
+            const response = await db.any(`select business, review from businesses, reviews where reviews.review='${name}'`);
             return response;
         } catch(err) {
             return err.message

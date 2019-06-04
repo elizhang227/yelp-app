@@ -1,5 +1,5 @@
 <section class="section">
-    <p>Search Review</p>
+    <p>Search for Reviews</p>
     <form action="/yelp" method="POST">
             <label>Business Name:
                 <input type="text" name="name">
@@ -8,10 +8,10 @@
                 <input type="text" name="review">
             </label> -->
         <div class="button">
-            <button type="submit">Search me hard</button>
+            <button id="reviewbutton" type="submit">Search me hard</button>
         </div>
     </form>
-    </section>
+</section>
 
 <section class="section">
     <table class="table">
@@ -37,8 +37,23 @@
         </thead>
         ${reviewList.map(top =>
                 `<tr>
-                    <td>${top.review}</td>
+                    <td><a href=/yelp/${top.review}>${top.review}</a></td>
                 </tr>`
             ).join('')}
     </table>
+</section>
+
+<section class="section">
+    <p>Add a Review</p>
+    <form action="/yelp" method="POST">
+            <!-- <label>Business Name:
+                <input type="text" name="business">
+            </label> -->
+            <label>Review:
+                <input type="text" name="review">
+            </label>
+        <div class="button">
+            <button type="submit">Add Review</button>
+        </div>
+    </form>
 </section>

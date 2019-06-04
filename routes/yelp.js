@@ -7,23 +7,45 @@ router.get('/', async (req, res, next) => {
 
     res.render('template', { 
         locals: {
-            title: 'List of REVIEWS',
+            title: 'YOU GET A REVIEW, YOU GET A REVIEW, EVERYONE GETS A REVIEW',
             reviewList: allReviews
         },
         partials : {
-            content: 'partial-yelp'
+            content: 'partial-home'
         }
     });
 })
 
+router.get('/:business', (req, res, next) => {
+    console.log(req.params);
+    const businessId = req.params.business;
+
+    yelpModel.getOneBusiness(businessId)
+    .then(async () => {
+        const allReviews = await yelpModel.getOneReviewForBusiness(businessId);
+
+        res.status(200).render('template', {
+            locals: {
+                title: 'List of REVIEWS',
+                reviewList: allReviews
+            },
+            partials: {
+                content: 'partial-review'
+            }
+        });
+    })
+    .catch((err) => {
+        res.sendStatus(500).send(err.message);
+    });
+})
+
 router.post('/', (req, res) => {
-    console.log(req.body);
     const { name } = req.body;
 
-    yelpModel.getOne(name)
+    yelpModel.getOneBusiness(name)
     .then(async () => {
-        const allReviews = await yelpModel.getAllReviewsForRestaurant(name);
-        console.log(`this is the output for allReviews: ${allReviews}`);
+        const allReviews = await yelpModel.getAllReviewsForBusiness(name);
+        //console.log(`this is the output for allReviews: ${allReviews}`);
 
         res.status(200).render('template', {
             locals: {
@@ -46,7 +68,8 @@ router.post('/', (req, res) => {
 
 //     yelpModel.addReview(name, review)
 //     .then(async () => {
-//         const allReviews = await yelpModel.getAllReviews();
+//         const allReviews = await yelpModel.getAllReviewsForBusiness(name);
+//         console.log(`this is the output for allReviews: ${allReviews}`);
 
 //         res.status(200).render('template', {
 //             locals: {
@@ -55,31 +78,6 @@ router.post('/', (req, res) => {
 //             },
 //             partials: {
 //                 content: 'partial-yelp'
-//             }
-//         });
-//     })
-//     .catch((err) => {
-//         res.sendStatus(500).send(err.message);
-//     });
-// });
-
-// router.post('/', (req, res) => {
-//     const { name, ranking } = req.body;
-
-//     yelpModel.addTopic(name, ranking)
-//     .then(async () => {
-//         const allReviews = await yelpModel.getallReviews();
-//         await yelpModel.updateTopic();
-
-//         //testtest();
-
-//         res.status(200).render('template', {
-//             locals: {
-//                 title: 'List of Topics from Class',
-//                 topicList: allReviews
-//             },
-//             partials: {
-//                 content: 'partial-topics'
 //             }
 //         });
 //     })
