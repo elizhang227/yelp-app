@@ -63,28 +63,4 @@ router.post('/', (req, res) => {
     });
 });
 
-// router.post('/', (req, res) => {
-//     console.log(req.body);
-//     const { name, review } = req.body;
-
-//     yelpModel.addReview(name, review)
-//     .then(async () => {
-//         const allReviews = await yelpModel.getAllReviewsForBusiness(name);
-//         console.log(`this is the output for allReviews: ${allReviews}`);
-
-//         res.status(200).render('template', {
-//             locals: {
-//                 title: 'List of REVIEWS',
-//                 reviewList: allReviews
-//             },
-//             partials: {
-//                 content: 'partial-yelp'
-//             }
-//         });
-//     })
-//     .catch((err) => {
-//         res.sendStatus(500).send(err.message);
-//     });
-// });
-
 module.exports = router;

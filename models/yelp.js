@@ -66,18 +66,6 @@ class Reviews {
         }
     }
 
-    // static async refreshTopic(name, ranking) {
-    //     const query2 = `update rankings set ranking = ${ranking} from topics where topics.id=rankings.id AND topics.topic='${name}'`;
-
-    //     try {
-    //         let response2 = await db.result(query2)
-    //         return response2;
-    //     } catch(err) {
-    //         console.log("ERROR", err.message);
-    //         return err;
-    //     };
-    // }
-
     // static async updateTopic(name, ranking) {
     //     const query2 = `update rankings set ranking = ${ranking} from topics where topics.id=rankings.id AND topics.topic='${name}'`;
 
