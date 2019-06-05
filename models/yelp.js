@@ -41,7 +41,7 @@ class Reviews {
 
     static async getAllReviewsForBusiness(name) {
         try {
-            const response = await db.any(`select business, review from businesses, reviews where businesses.business='${name}' and business_id=businesses.id`);
+            const response = await db.any(`select review_id, business, review from businesses, reviews where businesses.business='${name}' and business_id=businesses.id`);
             return response;
         } catch(err) {
             return err.message
@@ -57,9 +57,9 @@ class Reviews {
     //     }
     // }
 
-    static async getOneReviewForBusiness(name) {
+    static async getOneReviewForBusiness(name, review_id) {
         try {
-            const response = await db.any(`select business, review from businesses, reviews where businesses.business='${name}' and business_id=businesses.id and review_id=businesses.id;`);
+            const response = await db.any(`select review_id, business, review from businesses, reviews where businesses.business='${name}' and business_id=businesses.id and review_id=${review_id}`);
             return response;
         } catch(err) {
             return err.message

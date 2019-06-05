@@ -16,13 +16,14 @@ router.get('/', async (req, res, next) => {
     });
 })
 
-router.get('/:business', (req, res, next) => {
+router.get('/:business/:review', (req, res, next) => {
     console.log(req.params);
     const businessId = req.params.business;
+    const review = req.params.review;
 
     yelpModel.getOneBusiness(businessId)
     .then(async () => {
-        const allReviews = await yelpModel.getOneReviewForBusiness(businessId);
+        const allReviews = await yelpModel.getOneReviewForBusiness(businessId, review);
 
         res.status(200).render('template', {
             locals: {
@@ -40,12 +41,12 @@ router.get('/:business', (req, res, next) => {
 })
 
 router.post('/', (req, res) => {
+    console.log(req.body);
     const { name } = req.body;
 
     yelpModel.getOneBusiness(name)
     .then(async () => {
         const allReviews = await yelpModel.getAllReviewsForBusiness(name);
-        //console.log(`this is the output for allReviews: ${allReviews}`);
 
         res.status(200).render('template', {
             locals: {

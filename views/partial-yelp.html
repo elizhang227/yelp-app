@@ -37,7 +37,7 @@
         </thead>
         ${reviewList.map(top =>
                 `<tr>
-                    <td><a href=/yelp/${top.business}>${top.review}</a></td>
+                    <td><a href=/yelp/${top.business}/${top.review_id}>${top.review}</a></td>
                 </tr>`
             ).join('')}
     </table>
